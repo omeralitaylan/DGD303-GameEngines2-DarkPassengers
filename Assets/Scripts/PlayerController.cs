@@ -6,14 +6,12 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(PlayerInput))]
 public class PlayerController : MonoBehaviour
 {
-    private Rigidbody2D rb;
-    private Animator anim;
-    private PlayerInput input;
-
-    private InputAction move;
-
-    private Vector2 moveDir;
-    private Vector2 lastMoveDir;
+    Rigidbody2D rb;
+    Animator anim;
+    PlayerInput input;
+    InputAction move;
+    Vector2 moveDir;
+    Vector2 lastMoveDir;
 
     public float moveSpeed = 3f;
 
@@ -22,9 +20,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         input = GetComponent<PlayerInput>();
-
         move = input.actions.FindAction("Move");
-        
         lastMoveDir = Vector2.down;
     }
 
@@ -36,11 +32,16 @@ public class PlayerController : MonoBehaviour
         anim.SetFloat("MoveY", moveDir.y);
         anim.SetFloat("MoveMagnitude", moveDir.magnitude);
 
-        if (moveDir != Vector2.zero)
+        if(moveDir != Vector2.zero)
         {
             lastMoveDir = moveDir;
             anim.SetFloat("LastMoveX", lastMoveDir.x);
             anim.SetFloat("LastMoveY", lastMoveDir.y);
+        }
+
+        if(Keyboard.current.eKey.wasPressedThisFrame)
+        {
+            anim.SetTrigger("Collect");
         }
     }
 
