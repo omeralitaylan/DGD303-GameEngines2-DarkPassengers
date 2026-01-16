@@ -1,9 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(Animator))]
-[RequireComponent(typeof(PlayerInput))]
 public class PlayerController : MonoBehaviour
 {
     Rigidbody2D rb;
@@ -12,7 +9,6 @@ public class PlayerController : MonoBehaviour
     InputAction move;
     Vector2 moveDir;
     Vector2 lastMoveDir;
-
     public float moveSpeed = 3f;
 
     void Start()
@@ -37,11 +33,6 @@ public class PlayerController : MonoBehaviour
             lastMoveDir = moveDir;
             anim.SetFloat("LastMoveX", lastMoveDir.x);
             anim.SetFloat("LastMoveY", lastMoveDir.y);
-        }
-
-        if(Keyboard.current.eKey.wasPressedThisFrame)
-        {
-            anim.SetTrigger("Collect");
         }
     }
 
